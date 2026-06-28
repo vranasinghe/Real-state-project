@@ -184,24 +184,14 @@ CREATE POLICY "Allow agents to read their property enquiries"
 -- 5. TEST DATA SEEDING (FROM original mockData)
 -- ==========================================
 
--- Seeding corresponding agents' profile placeholders
-INSERT INTO public.profiles (id, full_name, email, role, phone) VALUES
-('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', 'James Harrison', 'james@casamare.com', 'agent', '+1 (555) 234-5678'),
-('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12', 'Sophia Martinez', 'sophia@casamare.com', 'agent', '+1 (555) 345-6789'),
-('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13', 'Michael Lee', 'michael@casamare.com', 'agent', '+1 (555) 456-7890'),
-('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14', 'Emily Davis', 'emily@casamare.com', 'agent', '+1 (555) 567-8901'),
-('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15', 'David Clark', 'david@casamare.com', 'agent', '+1 (555) 678-9012'),
-('a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a16', 'Olivia Wilson', 'olivia@casamare.com', 'agent', '+1 (555) 789-0123')
-ON CONFLICT (id) DO NOTHING;
-
--- Seeding Agents records
+-- Seeding Agents records (without profile bindings to bypass auth user constraints)
 INSERT INTO public.agents (id, profile_id, name, photo_url, bio, rating, total_sales) VALUES
-(1, 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', 'James Harrison', 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80', 'James has over 18 years of experience in luxury real estate investments and brokerages.', 4.9, 128),
-(2, 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12', 'Sophia Martinez', 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80', 'Sophia specializes in modern family residences and residential property consulting.', 4.8, 94),
-(3, 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13', 'Michael Lee', 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80', 'Michael covers waterfront high-rise condos and luxury vacation rentals.', 4.7, 76),
-(4, 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14', 'Emily Davis', 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80', 'Emily handles high-end residential listings in coastal and metropolitan regions.', 4.9, 58),
-(5, 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15', 'David Clark', 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80', 'David evaluates market trends, pricing strategies, and local development.', 4.6, 49),
-(6, 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a16', 'Olivia Wilson', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80', 'Olivia helps clients secure ultra-modern homes, smart estates, and luxury penthouses.', 4.9, 37)
+(1, NULL, 'James Harrison', 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80', 'James has over 18 years of experience in luxury real estate investments and brokerages.', 4.9, 128),
+(2, NULL, 'Sophia Martinez', 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80', 'Sophia specializes in modern family residences and residential property consulting.', 4.8, 94),
+(3, NULL, 'Michael Lee', 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80', 'Michael covers waterfront high-rise condos and luxury vacation rentals.', 4.7, 76),
+(4, NULL, 'Emily Davis', 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80', 'Emily handles high-end residential listings in coastal and metropolitan regions.', 4.9, 58),
+(5, NULL, 'David Clark', 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80', 'David evaluates market trends, pricing strategies, and local development.', 4.6, 49),
+(6, NULL, 'Olivia Wilson', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80', 'Olivia helps clients secure ultra-modern homes, smart estates, and luxury penthouses.', 4.9, 37)
 ON CONFLICT (id) DO NOTHING;
 
 -- Seeding listings properties
