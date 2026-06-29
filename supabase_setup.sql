@@ -169,9 +169,9 @@ CREATE POLICY "Allow users access to their own favorites list"
   WITH CHECK (auth.uid() = user_id);
 
 -- ENQUIRIES Policies
-CREATE POLICY "Allow authenticated enquiries submission"
+CREATE POLICY "Allow anyone to submit enquiries"
   ON public.enquiries FOR INSERT
-  WITH CHECK (auth.uid() IS NOT NULL);
+  WITH CHECK (true);
 
 CREATE POLICY "Allow agents to read their property enquiries"
   ON public.enquiries FOR SELECT
