@@ -26,6 +26,9 @@ dist-ssr
 
 # Environment Variables (CRITICAL: Do not upload Supabase keys)
 .env
+*.env
+frontend/.env
+backend/.env
 .env.development.local
 .env.test.local
 .env.production.local
