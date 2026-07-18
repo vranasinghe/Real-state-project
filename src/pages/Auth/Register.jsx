@@ -153,7 +153,7 @@ export const Register = () => {
       <div className="hidden md:flex md:w-[40%] lg:w-[45%] relative shrink-0">
         <img
           src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80"
-          alt="Casa Mare Exterior Real Estate"
+          alt="Aura Spaces Exterior Real Estate"
           className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Gradient Overlay */}
@@ -166,7 +166,7 @@ export const Register = () => {
               <path d="M19 21H5a2 2 0 0 1-2-2V9.586a1 1 0 0 1 .293-.707l7-7a1 1 0 0 1 1.414 0l7 7a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2zM12 4.414 5 11.414V19h14v-7.586L12 4.414z"/>
               <path d="M10 14h4v5h-4z"/>
             </svg>
-            <span>Casa Mare</span>
+            <span>Aura Spaces</span>
           </Link>
 
           <div className="space-y-4">
@@ -197,7 +197,7 @@ export const Register = () => {
               <path d="M19 21H5a2 2 0 0 1-2-2V9.586a1 1 0 0 1 .293-.707l7-7a1 1 0 0 1 1.414 0l7 7a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2zM12 4.414 5 11.414V19h14v-7.586L12 4.414z"/>
               <path d="M10 14h4v5h-4z"/>
             </svg>
-            <span className="hidden sm:inline">Casa Mare</span>
+            <span className="hidden sm:inline">Aura Spaces</span>
           </Link>
           
           <Link
@@ -212,7 +212,7 @@ export const Register = () => {
         <div className="max-w-xl w-full mx-auto my-auto py-6 space-y-6">
           <div className="space-y-1">
             <h2 className="text-2xl font-heading font-bold text-textDark">Create account</h2>
-            <p className="text-xs text-textMuted">Join Casa Mare — it's free</p>
+            <p className="text-xs text-textMuted">Join Aura Spaces — it's free</p>
           </div>
 
           {registerSuccess && (
@@ -482,7 +482,7 @@ export const Register = () => {
 
         {/* Bottom copyright footer */}
         <div className="text-center pt-8 text-[11px] text-textMuted/60 border-t border-borderLight mt-10 shrink-0">
-          <span>© 2026 Casa Mare. Back to </span>
+          <span>© 2026 Aura Spaces. Back to </span>
           <Link to="/" className="text-primary font-bold hover:underline">Home</Link>
         </div>
 

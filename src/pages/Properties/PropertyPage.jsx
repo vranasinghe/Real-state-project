@@ -65,11 +65,11 @@ export const PropertyPage = () => {
   }
 
   const agent = property.agent || {
-    name: 'Casa Mare Advisor',
+    name: 'Aura Spaces Advisor',
     photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80',
     role: 'Real Estate Consultant',
     phone: '+1 (555) 000-0000',
-    email: 'info@casamare.com',
+    email: 'info@auraspaces.com',
     rating: 5.0,
     reviews: 0
   };

@@ -97,7 +97,7 @@ BEGIN
       NEW.id,
       user_name,
       COALESCE(NEW.raw_user_meta_data->>'avatar_url', ''),
-      'Licensed Real Estate Agent at Casa Mare.',
+      'Licensed Real Estate Agent at Aura Spaces.',
       5.0,
       0
     );

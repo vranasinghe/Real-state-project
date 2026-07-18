@@ -79,7 +79,7 @@ export const Login = () => {
       <div className="hidden md:flex md:w-[40%] lg:w-[45%] relative shrink-0">
         <img
           src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
-          alt="Casa Mare Dream Mansion"
+          alt="Aura Spaces Dream Mansion"
           className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Gradient Overlay */}
@@ -93,7 +93,7 @@ export const Login = () => {
               <path d="M19 21H5a2 2 0 0 1-2-2V9.586a1 1 0 0 1 .293-.707l7-7a1 1 0 0 1 1.414 0l7 7a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2zM12 4.414 5 11.414V19h14v-7.586L12 4.414z"/>
               <path d="M10 14h4v5h-4z"/>
             </svg>
-            <span>Casa Mare</span>
+            <span>Aura Spaces</span>
           </Link>
 
           {/* Bottom Content Tagline */}
@@ -127,7 +127,7 @@ export const Login = () => {
               <path d="M19 21H5a2 2 0 0 1-2-2V9.586a1 1 0 0 1 .293-.707l7-7a1 1 0 0 1 1.414 0l7 7a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2zM12 4.414 5 11.414V19h14v-7.586L12 4.414z"/>
               <path d="M10 14h4v5h-4z"/>
             </svg>
-            <span className="hidden sm:inline">Casa Mare</span>
+            <span className="hidden sm:inline">Aura Spaces</span>
           </Link>
           
           <Link
@@ -283,7 +283,7 @@ export const Login = () => {
 
         {/* Bottom copyright footer */}
         <div className="text-center pt-8 text-[11px] text-textMuted/60 border-t border-borderLight mt-10 shrink-0">
-          <span>© 2026 Casa Mare. Back to </span>
+          <span>© 2026 Aura Spaces. Back to </span>
           <Link to="/" className="text-primary font-bold hover:underline">Home</Link>
         </div>
 

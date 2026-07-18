@@ -1,6 +1,6 @@
-# Casa Mare Real Estate
+# Aura Spaces Real Estate
 
-Casa Mare is a premium, modern real estate web application built with **React**, **Vite**, **Tailwind CSS**, and fully integrated with a **Supabase (PostgreSQL)** backend for user sessions, role-based controls, row-level security, image storage, and database persistence.
+Aura Spaces is a premium, modern real estate web application built with **React**, **Vite**, **Tailwind CSS**, and fully integrated with a **Supabase (PostgreSQL)** backend for user sessions, role-based controls, row-level security, image storage, and database persistence.
 
 ---
 
@@ -50,7 +50,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser to view the 
 The application is structured using a domain-driven layout for high modularity and ease of maintenance:
 
 ```text
-casa-mare-real-estate/
+aura-spaces/
 ├── index.html                  # HTML entry point
 ├── package.json                # Project dependencies and npm scripts
 ├── tailwind.config.js          # Design system variables (harmonious palettes, font family)

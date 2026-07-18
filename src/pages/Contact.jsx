@@ -73,7 +73,7 @@ export const Contact = () => {
                   <div>
                     <h4 className="font-heading font-bold text-sm text-textDark font-semibold">Email Inquiry</h4>
                     <p className="text-xs text-textMuted mt-1">
-                      info@casamare.com
+                      info@auraspaces.com
                     </p>
                   </div>
                 </div>

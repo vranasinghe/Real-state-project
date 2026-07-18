@@ -11,7 +11,7 @@ export const About = () => {
       {/* Header breadcrumb */}
       <section className="bg-cardBg py-10 border-b border-borderLight">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-heading font-extrabold text-textDark tracking-tight mb-2">About Casa Mare</h1>
+          <h1 className="text-3xl font-heading font-extrabold text-textDark tracking-tight mb-2">About Aura Spaces</h1>
           <div className="flex items-center space-x-2 text-xs font-semibold text-textMuted uppercase tracking-wider">
             <Link to="/" className="hover:text-primary transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5" />
@@ -29,7 +29,7 @@ export const About = () => {
               Pioneering Luxury Real Estate For Over 15 Years
             </h2>
             <p className="text-textMuted text-sm leading-relaxed">
-              Casa Mare was founded with the sole mission of delivering premium brokerage services that emphasize customer satisfaction. We connect high-profile buyers, rental seekers, and portfolio investors with premium property assets across the country.
+              Aura Spaces was founded with the sole mission of delivering premium brokerage services that emphasize customer satisfaction. We connect high-profile buyers, rental seekers, and portfolio investors with premium property assets across the country.
             </p>
             <p className="text-textMuted text-sm leading-relaxed">
               Our team consists of highly experienced local analysts, skilled negotiators, and dedicated customer success coordinators, providing a fully guided path from initial viewing to finalized contract signing.
@@ -121,7 +121,7 @@ export const About = () => {
             <div>
               <h4 className="font-heading font-bold text-lg text-textDark">2011 — The Foundation</h4>
               <p className="text-textMuted text-xs mt-1 max-w-xl leading-relaxed">
-                Casa Mare was established in Miami, Florida as a boutique brokerage agency focusing on seaside luxury properties.
+                Aura Spaces was established in Miami, Florida as a boutique brokerage agency focusing on seaside luxury properties.
               </p>
             </div>
           </div>
@@ -155,7 +155,7 @@ export const About = () => {
           <span className="text-primary font-heading font-extrabold text-xs uppercase tracking-widest font-semibold">Leadership</span>
           <h2 className="text-3xl font-heading font-extrabold text-textDark">Meet Our Expert Team</h2>
           <p className="text-textMuted text-sm">
-            Meet the senior property advisors and consultants driving Casa Mare.
+            Meet the senior property advisors and consultants driving Aura Spaces.
           </p>
         </div>
 

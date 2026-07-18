@@ -16,7 +16,7 @@ export const Footer = () => {
                   <path d="M19 21H5a2 2 0 0 1-2-2V9.586a1 1 0 0 1 .293-.707l7-7a1 1 0 0 1 1.414 0l7 7a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2zM12 4.414 5 11.414V19h14v-7.586L12 4.414z"/>
                   <path d="M10 14h4v5h-4z"/>
                 </svg>
-                Casa Mare
+                Aura Spaces
               </span>
             </Link>
             <p className="text-white/70 max-w-sm text-sm leading-relaxed">
@@ -75,7 +75,7 @@ export const Footer = () => {
               </li>
               <li className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-primary shrink-0" />
-                <span>info@casamare.com</span>
+                <span>info@auraspaces.com</span>
               </li>
             </ul>
           </div>
@@ -84,7 +84,7 @@ export const Footer = () => {
 
         {/* Bottom copyright bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between pt-8 text-xs text-white/50">
-          <p>© 2026 Casa Mare. All rights reserved.</p>
+          <p>© 2026 Aura Spaces. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 sm:mt-0">
             <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-primary transition-colors">Terms & Conditions</a>

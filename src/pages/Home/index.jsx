@@ -80,7 +80,7 @@ export const Home = () => {
               Find Your Dream Property Today!
             </h1>
             <p className="text-lg text-white/80 leading-relaxed max-w-lg font-light">
-              Discover the perfect place to call home. Casa Mare connects you with top tier luxury villas, modern apartments, and premium family estates.
+              Discover the perfect place to call home. Aura Spaces connects you with top tier luxury villas, modern apartments, and premium family estates.
             </p>
           </div>
 
@@ -98,7 +98,7 @@ export const Home = () => {
           {/* Left Side: Stats and Rows */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <span className="text-primary font-heading font-extrabold text-xs uppercase tracking-widest">About Casa Mare</span>
+              <span className="text-primary font-heading font-extrabold text-xs uppercase tracking-widest">About Aura Spaces</span>
               <h2 className="text-3xl md:text-4xl font-heading font-extrabold text-textDark leading-tight">
                 Over 15 Years of Excellence in Real Estate Services
               </h2>
@@ -156,7 +156,7 @@ export const Home = () => {
             <div className="absolute inset-0 bg-primary/10 rounded-card translate-x-4 translate-y-4 -z-10 group-hover:translate-x-3 group-hover:translate-y-3 transition-transform duration-300"></div>
             <img
               src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80"
-              alt="Casa Mare Villa"
+              alt="Aura Spaces Villa"
               className="w-full h-[420px] object-cover rounded-card shadow-lg"
             />
           </div>
@@ -609,7 +609,7 @@ export const Home = () => {
           {/* Left details */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <span className="text-primary font-heading font-extrabold text-xs uppercase tracking-widest font-semibold">Casa Mare Mobile</span>
+              <span className="text-primary font-heading font-extrabold text-xs uppercase tracking-widest font-semibold">Aura Spaces Mobile</span>
               <h2 className="text-3xl sm:text-4xl font-heading font-extrabold text-textDark leading-tight">
                 Download Our Mobile App — Search. Find. Invest. On the go.
               </h2>
@@ -662,7 +662,7 @@ export const Home = () => {
             {/* Phone Image Mockup */}
             <img
               src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80"
-              alt="Casa Mare App Mockup"
+              alt="Aura Spaces App Mockup"
               className="w-64 h-[460px] object-cover rounded-card border-8 border-darkGreen shadow-2xl relative z-10"
             />
           </div>

@@ -100,7 +100,7 @@ export const ContactForm = ({ type = 'general', agentName = '', propertyId = nul
         <p className="text-sm text-emerald-700/90 leading-relaxed">
           {type === 'tour' 
             ? "Your schedule tour request has been sent. An agent will contact you shortly to confirm the appointment."
-            : `Thank you for contacting ${agentName ? agentName : 'Casa Mare'}. We will review your message and reply within 24 hours.`
+            : `Thank you for contacting ${agentName ? agentName : 'Aura Spaces'}. We will review your message and reply within 24 hours.`
           }
         </p>
       </div>

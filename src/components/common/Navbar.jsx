@@ -35,7 +35,7 @@ export const Navbar = () => {
                 <path d="M19 21H5a2 2 0 0 1-2-2V9.586a1 1 0 0 1 .293-.707l7-7a1 1 0 0 1 1.414 0l7 7a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2zM12 4.414 5 11.414V19h14v-7.586L12 4.414z"/>
                 <path d="M10 14h4v5h-4z"/>
               </svg>
-              Casa Mare
+              Aura Spaces
             </span>
           </Link>
 

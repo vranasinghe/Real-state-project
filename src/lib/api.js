@@ -129,7 +129,7 @@ export const getAgents = async () => {
     role: agent.profiles?.role === 'agent' ? 'Premium Sales Agent' : 'Real Estate Consultant',
     phone: agent.profiles?.phone || '',
     email: agent.profiles?.email || '',
-    bio: agent.bio || 'Licensed Agent at Casa Mare.',
+    bio: agent.bio || 'Licensed Agent at Aura Spaces.',
     propertiesListed: agent.properties ? agent.properties.length : 0,
     rating: Number(agent.rating),
     reviews: agent.total_sales || 0
@@ -156,7 +156,7 @@ export const getAgent = async (id) => {
     role: data.profiles?.role === 'agent' ? 'Premium Sales Agent' : 'Real Estate Consultant',
     phone: data.profiles?.phone || '',
     email: data.profiles?.email || '',
-    bio: data.bio || 'Licensed Agent at Casa Mare.',
+    bio: data.bio || 'Licensed Agent at Aura Spaces.',
     propertiesListed: data.properties ? data.properties.length : 0,
     rating: Number(data.rating),
     reviews: data.total_sales || 0,
