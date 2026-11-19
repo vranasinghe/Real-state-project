@@ -1,112 +1,256 @@
-# Aura Space Real Estate & Historical Housing ML
+<div align="center">
 
-A React 18 / Vite / Tailwind real-estate application with Supabase accounts, property listings, favorites, enquiries and seller/agent dashboards. A separate FastAPI service runs the existing 50/50 Ridge + tuned Gradient Boosting ensemble.
+<img src="docs/images/aura-space-banner.webp" alt="Aura Space – Premium Real Estate · Intelligent Valuation" width="100%" />
 
-The estimator is a **historical Ames, Iowa demonstration using 2006–2010 sales**. It does not estimate contemporary market prices, other cities, other countries or rents. Prices are USD at the stored 2010 serving reference year.
+<br />
 
-## Project structure
+# Aura Space
+
+**Premium real estate discovery with an intelligent, machine-learning price estimator.**
+
+[![CI](https://github.com/vranasinghe/Real-state-project/actions/workflows/ci.yml/badge.svg)](https://github.com/vranasinghe/Real-state-project/actions/workflows/ci.yml)
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-Python-009688?logo=fastapi&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-Auth_&_DB-3ECF8E?logo=supabase&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-F7931E?logo=scikitlearn&logoColor=white)
+
+[Features](#-features) ·
+[Tech stack](#-tech-stack) ·
+[Getting started](#-getting-started) ·
+[AI estimator](#-ai-price-estimator) ·
+[Deployment](#-deployment) ·
+[Documentation](#-documentation)
+
+</div>
+
+---
+
+## 📖 Overview
+
+**Aura Space** is a full-stack real-estate platform that pairs a polished property-discovery experience with an AI valuation tool.
+
+- A **React + Vite + Tailwind** single-page app for browsing listings, saving favorites, contacting agents and managing listings from seller/agent dashboards.
+- **Supabase** for authentication, the Postgres database, row-level security and image storage.
+- A separate **FastAPI** service that serves a 50/50 **Ridge + tuned Gradient Boosting** ensemble to estimate a home's value.
+
+> [!IMPORTANT]
+> The estimator is a **historical demonstration trained on Ames, Iowa sales from 2006–2010**. It does not estimate contemporary market prices, other cities or countries, or rents. All prices are USD at a stored 2010 reference year.
+
+## ✨ Features
+
+| Area | Highlights |
+| --- | --- |
+| **Property discovery** | Search, filters with removable chips, sorting, pagination, grid/list views, skeleton loaders and empty states |
+| **Property details** | Keyboard-accessible photo gallery, tabbed details, agent contact, tour enquiries and similar homes |
+| **AI Price Estimator** | Four-step wizard with 18 inputs, real model prediction, error-reference band, input snapshot and what-if comparisons |
+| **Model report** | Interactive six-stage pipeline, live inference trace, model rankings, price-band errors, feature importance and limitations |
+| **Accounts & roles** | Email auth, password recovery, favorites, buyer / seller / agent dashboards and enquiry management |
+| **Agents** | Agent directory and individual agent profiles with contact forms |
+| **Security** | Row-level security, role and ownership protection, validated enquiries and user-scoped image uploads |
+
+### Routes
+
+| Route | Description |
+| --- | --- |
+| `/` | Hero search, selected listings, city discovery, agent preview, AI project showcase |
+| `/properties` | Browse and filter all listings |
+| `/properties/:id` | Listing details, gallery, enquiry and similar homes |
+| `/estimator` | Four-step AI price estimator |
+| `/model-report` | ML case study and interactive pipeline lab (`#interactive-lab`) |
+| `/agents`, `/agents/:id` | Agent directory and profiles |
+| `/about`, `/contact`, `/favorites` | Supporting pages |
+| `/login`, `/register`, `/forgot-password`, `/reset-password` | Authentication flows |
+
+## 🧰 Tech stack
+
+| Layer | Technology |
+| --- | --- |
+| **Frontend** | React 18, Vite 5, Tailwind CSS 3, React Router 6, Framer Motion, Lucide icons, Three.js / React Three Fiber |
+| **Backend API** | FastAPI, Pydantic, scikit-learn, pandas, NumPy, joblib |
+| **Database & auth** | Supabase (Postgres, Auth, Storage, RLS) |
+| **Tooling** | ESLint, pytest, GitHub Actions CI |
+| **Hosting** | Vercel (frontend), Render (estimator API) |
+
+## 🗂 Project structure
 
 ```
 .
-├── src/                    React app (Vite + Tailwind)
-│   ├── pages/              One folder per route (Home, Properties, Estimator, ...)
-│   ├── components/         agent/ common/ model/ property/ search/ three/
-│   ├── context/ hooks/     Auth + favorites state, shared hooks
-│   ├── lib/                Supabase client, data API, estimator API client
-│   ├── routes/ utils/ data/
-├── backend/                FastAPI price-estimator service
-│   ├── app.py              API routes
-│   ├── train_model.py      Rebuilds the model from data/
-│   ├── artifacts/          Saved model.joblib
-│   ├── report/             Notebook metrics + figures served by the API
-│   └── tests/
-├── data/ames-housing/      Kaggle Ames training/test CSVs
-├── notebooks/              Original modelling notebook
-├── database/               Supabase SQL, run in numeric order (01, 02, 03)
-├── docs/                   DESIGN, PRODUCT, IMPLEMENTATION notes
-├── scripts/                In-memory demo integration check
-└── .github/workflows/      CI (lint, build, backend tests)
+├── frontend/                   React app (Vite + Tailwind)
+│   ├── src/
+│   │   ├── pages/              One folder per route (Home, Properties, Estimator, ...)
+│   │   ├── components/         agent/ common/ model/ property/ search/ three/
+│   │   ├── context/ hooks/     Auth + favorites state, shared hooks
+│   │   ├── lib/                Supabase client, data API, estimator API client
+│   │   └── routes/ utils/ data/
+│   ├── scripts/                In-memory demo integration check
+│   ├── index.html
+│   ├── package.json
+│   ├── vite.config.js
+│   ├── vercel.json             Vercel SPA rewrite
+│   └── .env.example
+├── backend/                    FastAPI price-estimator service
+│   ├── app.py                  API routes
+│   ├── train_model.py          Rebuilds the model from ml/data
+│   ├── artifacts/              Saved model.joblib
+│   ├── report/                 Notebook metrics + figures served by the API
+│   ├── tests/
+│   └── .env.example
+├── ml/                         Machine-learning assets
+│   ├── data/ames-housing/      Kaggle Ames training/test CSVs
+│   └── notebooks/              Original modelling notebook
+├── database/                   Supabase SQL, run in numeric order (01, 02, 03)
+├── docs/                       DESIGN, PRODUCT, IMPLEMENTATION notes, images
+├── .github/workflows/          CI (lint, build, backend tests)
+└── render.yaml                 Render Blueprint for the API
 ```
 
-## Run locally
+## 🚀 Getting started
 
-From the project root, use two terminals:
+### Prerequisites
+
+- **Node.js** 20 and npm
+- **Python** 3.14 (see `.python-version`)
+
+### 1. Install and run
+
+Use two terminals.
+
+**Frontend** (from `frontend/`)
 
 ```powershell
+cd frontend
 npm install
 npm run dev
 ```
+
+**Backend** (from the project root)
 
 ```powershell
 python -m pip install -r backend/requirements-dev.txt
 python -m uvicorn backend.app:app --host 127.0.0.1 --port 8000
 ```
 
-Open http://localhost:5173. The saved `backend/artifacts/model.joblib` is included; **retraining is not required**. Use the compatible scikit-learn version pinned in `backend/requirements.txt`. FastAPI's interactive API schema is at http://127.0.0.1:8000/docs.
+Then open <http://localhost:5173>. Interactive API docs are at <http://127.0.0.1:8000/docs>.
 
-If port 8000 is already in use, run the backend on 8001 and start Vite with:
+The trained `backend/artifacts/model.joblib` is included, so **retraining is not required**. Use the scikit-learn version pinned in `backend/requirements.txt`.
+
+<details>
+<summary><b>Port 8000 already in use?</b></summary>
+
+Run the backend on 8001 and point Vite's proxy at it:
 
 ```powershell
 $env:API_PROXY_TARGET='http://127.0.0.1:8001'
 npm run dev
 ```
 
-Without Supabase settings, development uses labelled sample properties and simulated browser-local accounts. These are not real authentication, verified agents or real enquiries. Distinct demo emails receive separate local identities. Production demo accounts require explicit `VITE_ENABLE_DEMO=true`; otherwise authentication fails closed when Supabase is missing.
+</details>
 
-## Connect Supabase
+### 2. Environment variables
 
-1. Copy `.env.example` to `.env` and provide the project's public URL and anon/publishable key. Never put a service-role or private key in a `VITE_` variable.
-2. For a fresh database, run `database/01_supabase_setup.sql` in its SQL editor. This includes **sample** properties and agents; replace seed data before presenting real listings.
-3. For an older installation that predates dashboards, run `database/02_supabase_migration_dashboard.sql`.
-4. In every installation, run `database/03_supabase_security_hardening.sql` after the applicable setup scripts. It limits editable profile/agent columns, protects roles and listing reassignment, validates enquiry ownership/recipients, and configures image uploads in user-owned folders.
-5. Configure Auth Site URL and allowed redirects, including `/reset-password`. Enable Google/Facebook providers only if those social-login options will be used.
+Frontend variables go in `frontend/.env` (copy `frontend/.env.example`); the backend reads `CORS_ORIGINS` from its environment (see `backend/.env.example`):
 
-The hardening migration creates or configures the public `property-images` bucket with a 1 MB limit and JPEG/PNG/WebP/AVIF MIME restrictions. Public listing images are readable; uploads/deletes use the caller's UUID folder. Check for older permissive storage policies in an existing database, since permissive policies combine with OR. Roles selected during signup are self-service application roles, not proof of a professional license. Later role changes require an administrator.
+| Variable | Scope | Purpose |
+| --- | --- | --- |
+| `VITE_SUPABASE_URL` | Frontend | Public Supabase project URL |
+| `VITE_SUPABASE_ANON_KEY` | Frontend | Public anon / publishable key (**never** a service-role key) |
+| `VITE_API_BASE_URL` | Frontend | Estimator API origin; empty uses same-origin `/api` |
+| `VITE_ENABLE_DEMO` | Frontend | Set `true` to allow demo accounts in production |
+| `CORS_ORIGINS` | Backend | Comma-separated exact frontend origins, no trailing slash |
 
-No remote database migration was applied during the local implementation. Validate the migration in a staging Supabase project, including cross-account role updates, ownership reassignment, enquiry access and storage paths, before production use.
+Without Supabase settings, development falls back to clearly labelled sample properties and simulated browser-local accounts. These are **not** real authentication, verified agents or real enquiries. In production, authentication fails closed unless `VITE_ENABLE_DEMO=true`.
 
-## Features and routes
+### 3. Connect Supabase
 
-- `/`: architectural photography, property search, selected listings, city discovery, agent directory preview and a historical AI project showcase.
-- `/properties`: filters, removable active filters, sorting, pagination, grid/list views, skeletons and empty states.
-- `/properties/:id`: supplied photographs with a keyboard-accessible native-dialog gallery, property tabs, listing contact, tour enquiry and similar homes. The lazy photo viewer is a projected-photo demonstration, not a verified 360-degree tour. Unprovided amenities and floor plans are not invented.
-- `/estimator`: four-step workflow collecting all 18 supported inputs; review, real prediction, explicit MAE reference band, submitted-input snapshot, global tree importance and real backend what-if comparisons.
-- `/model-report`: detailed case study plus a six-stage interactive pipeline, real live inference trace, selectable RMSE/MAE/log-R² model rankings, price-band error exploration, global importance inspection, all six original figures and limitations.
-- `/agents`, `/agents/:id`, `/about`, `/contact`, `/favorites` and existing dashboard/auth routes remain available. `/reset-password` completes Supabase email recovery.
+1. Create a Supabase project and add its URL and anon key to `frontend/.env`.
+2. Run `database/01_supabase_setup.sql` in the SQL editor (includes **sample** properties and agents — replace before showing real listings).
+3. For installations that predate dashboards, also run `database/02_supabase_migration_dashboard.sql`.
+4. Run `database/03_supabase_security_hardening.sql` in **every** installation. It restricts editable columns, protects roles and listing ownership, validates enquiries and configures image uploads.
+5. Set the Auth Site URL and allowed redirects (including `/reset-password`). Enable Google/Facebook providers only if you use social login.
 
-The platform never automatically runs the Ames estimator on a listing. A contextual link opens the separate historical demonstration.
+> [!NOTE]
+> Validate migrations in a staging Supabase project (role updates, ownership reassignment, enquiry access, storage paths) before applying them to production.
 
-## Model interpretation
+## 🤖 AI price estimator
 
-The served model uses 18 visitor inputs and stored defaults/assumptions for other attributes, engineers features, and applies its saved encoding/scaling pipelines. Ridge and Gradient Boosting each contribute 50% of the log-price prediction; `expm1` converts the blend back to dollars. The model artifact has not been replaced or retrained.
+The served model takes **18 visitor inputs**, fills the remaining attributes with stored training medians/modes, engineers features and applies the saved encoding/scaling pipelines. Ridge and Gradient Boosting each contribute 50% of the log-price prediction, and `expm1` converts the blend back to dollars.
 
-The repository's stored notebook test metrics are R² **0.9049 on log prices**, MAE **$13,981**, and dollar RMSE **$21,673**. R² is not a prediction-accuracy percentage. The notebook's held-out results and figures are preserved; `train_model.py` fits the selected model on all 1,458 cleaned labelled rows for serving and does not recreate notebook split evaluation/tuning.
+### Held-out test metrics (from the original notebook)
 
-`estimate ± test MAE` is an **error reference**, not a calibrated confidence interval. Global impurity importance belongs to the Gradient Boosting component and does not explain individual predictions. What-if differences measure model sensitivity, not causal renovation value.
+| Metric | Value |
+| --- | --- |
+| R² (log price) | **0.9049** |
+| MAE | **$13,981** |
+| RMSE | **$21,673** |
 
-The compatible API routes are `/api/health`, `/api/meta`, `/api/predict`, `/api/report` and `/api/figures/*`. Predictions and metadata add USD currency, historical scope, reference year, an artifact SHA-256 version prefix, band method and interpretation. Existing estimate/low/high/typical_error fields remain compatible.
+### Reading the results correctly
 
-## Verification
+- R² is **not** a prediction-accuracy percentage.
+- `estimate ± test MAE` is an **error reference**, not a calibrated confidence interval.
+- Feature importance is **global** Gradient Boosting impurity importance and does not explain individual predictions.
+- What-if differences measure **model sensitivity**, not causal renovation value.
+- The platform never automatically runs the Ames estimator on a listing; a contextual link opens the separate historical demo.
+
+### API endpoints
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| `GET` | `/api/health` | Service health check |
+| `GET` | `/api/meta` | Scope, model version, currency and transparency metadata |
+| `POST` | `/api/predict` | Estimate a price from validated `HouseInput` |
+| `POST` | `/api/demonstrate` | Real feature-engineering and ensemble inference trace |
+| `GET` | `/api/report` | Notebook metrics and comparison tables |
+| `GET` | `/api/figures/*` | Report figures |
+
+`backend/train_model.py` fits the selected model on all 1,458 cleaned labelled rows for serving. It does not recreate the notebook's split evaluation or tuning.
+
+## ✅ Verification
 
 ```powershell
+cd frontend
 npm run build
 npm run lint
-python -m pytest backend/tests -q
 node scripts/test-demo.mjs
+cd ..
+python -m pytest backend/tests -q
 ```
 
-The in-memory demo integration check exercises roles, distinct identities, listing creation/search/details, ownership rejection, favorites, enquiries and logout. It refuses to run against a configured Supabase project. See `docs/IMPLEMENTATION.md` for the implementation inventory, executed checks and verification limits.
+The in-memory demo check exercises roles, distinct identities, listing creation/search/details, ownership rejection, favorites, enquiries and logout. It refuses to run against a configured Supabase project. The same lint, build and backend-test steps run in GitHub Actions on every push.
 
-## Deployment
+## ☁️ Deployment
 
-Build the frontend with `npm run build`, serve `dist`, and route SPA paths to `index.html`. Deploy FastAPI separately with the included trusted model artifact and pinned ML dependency. Route same-origin `/api/*` to FastAPI, or set the public HTTPS `VITE_API_BASE_URL` at frontend build time. Vite's development proxy does not ship with the built site.
+| Component | Platform | Configuration |
+| --- | --- | --- |
+| Frontend | Vercel | Set **Root Directory** to `frontend`; `frontend/vercel.json` adds the SPA rewrite |
+| Estimator API | Render | `render.yaml` Blueprint, health check at `/api/health` |
 
-Set backend `CORS_ORIGINS` to comma-separated exact frontend HTTPS origins. Use TLS and edge-level abuse/rate controls for public inference and anonymous enquiry endpoints. CORS is a browser access rule, not authentication or abuse protection. Do not expose development servers publicly. No hosting deployment was performed.
+1. Build the frontend with `npm run build` in `frontend/` and serve `frontend/dist`, routing SPA paths to `index.html`.
+2. Deploy FastAPI separately with the included model artifact and pinned ML dependencies.
+3. Route same-origin `/api/*` to FastAPI, **or** set a public HTTPS `VITE_API_BASE_URL` at build time. Vite's dev proxy does not ship with the built site.
+4. Set backend `CORS_ORIGINS` to the exact frontend HTTPS origins.
+5. Add TLS and edge-level rate limiting for the public inference and enquiry endpoints. CORS is a browser rule, not authentication or abuse protection.
 
-Route pages and the expensive photo viewer are lazy-loaded. The Three.js vendor chunk remains large, but is requested by the optional photo viewer rather than the initial homepage. Fonts and photography require access to Google Fonts/Unsplash; substitute licensed self-hosted assets if offline operation is required.
+Route pages and the Three.js photo viewer are lazy-loaded, so the heavy 3D chunk is only requested when the viewer opens. Fonts and photography load from Google Fonts and Unsplash; substitute licensed, self-hosted assets for offline use.
 
-## Interactive ML demonstration
+## 📚 Documentation
 
-Open `/model-report#interactive-lab`. The pipeline explorer explains the original notebook’s split, cleaning, encoding, feature engineering, tuning and log-scale ensemble. The live trace calls `POST /api/demonstrate` with the same validated `HouseInput` as the estimator and shows actual engineered values, saved preprocessing output dimensions, Ridge/boosting log and dollar outputs, and the final estimate. Tab state persists while comparing models and errors. Neither this endpoint nor the UI retrains the artifact or computes individual feature attribution.
+- [`docs/PRODUCT.md`](docs/PRODUCT.md) — product goals and scope
+- [`docs/DESIGN.md`](docs/DESIGN.md) — design system and UI decisions
+- [`docs/IMPLEMENTATION.md`](docs/IMPLEMENTATION.md) — implementation inventory, executed checks and verification limits
+- [`ml/notebooks/ames_housing_price_prediction.ipynb`](ml/notebooks/ames_housing_price_prediction.ipynb) — original modelling notebook
 
-The current workspace uses a gitignored `.env.development.local` override for the API at `http://127.0.0.1:8001`; start the backend on port 8001 for this preview. Remove or edit that local override when using a different development API. Production builds continue to use the normal build-time API configuration.
+## 🙏 Acknowledgements
+
+- [Ames Housing dataset](https://www.kaggle.com/c/house-prices-advanced-regression-techniques) by Dean De Cock, via Kaggle
+- [Supabase](https://supabase.com), [FastAPI](https://fastapi.tiangolo.com) and [scikit-learn](https://scikit-learn.org)
+- Photography via [Unsplash](https://unsplash.com)
+
+---
+
+<div align="center">
+
+Built with care by <a href="https://github.com/vranasinghe">@vranasinghe</a>
+
+</div>

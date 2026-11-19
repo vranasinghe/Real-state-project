@@ -26,7 +26,7 @@ from sklearn.preprocessing import FunctionTransformer, OneHotEncoder, OrdinalEnc
 SEED = 42
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
-DEFAULT_TRAIN = ROOT / "data" / "ames-housing" / "train.csv"
+DEFAULT_TRAIN = ROOT / "ml" / "data" / "ames-housing" / "train.csv"
 MODEL_PATH = HERE / "artifacts" / "model.joblib"
 
 # NA in these columns means "the house doesn't have it"
