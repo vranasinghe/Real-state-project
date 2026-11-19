@@ -53,63 +53,76 @@ const writeStore = (key, value) => localStorage.setItem(key, JSON.stringify(valu
 
 const allMockProperties = () => [...mockProperties, ...readStore(LISTINGS_KEY)];
 
+// When Supabase is configured but unreachable (paused/deleted project, offline), fall back to the
+// bundled sample data so the site still renders. Real query errors are still surfaced.
+const isNetworkError = (err) => /failed to fetch|fetch failed|networkerror|network request failed|load failed/i.test(String(err?.message || err));
+const withFallback = async (label, fetchLive, fetchSample) => {
+  try {
+    return await fetchLive();
+  } catch (err) {
+    if (!isNetworkError(err)) throw err;
+    console.warn(`Supabase unreachable while loading ${label}; showing bundled sample data.`);
+    return fetchSample();
+  }
+};
+
 // 1. Get properties based on search filters
-export const getProperties = async (filters = {}) => {
-  if (!isConfigured) {
-    let list = [...allMockProperties()];
+const getMockProperties = (filters = {}) => {
+  let list = [...allMockProperties()];
 
-    // Attach agent details (user-created listings carry their own owner card)
-    list = list.map(p => {
-      const agent = mockAgents.find(a => a.id === p.agent_id) || p.agent || null;
-      return { ...p, agent };
-    });
+  // Attach agent details (user-created listings carry their own owner card)
+  list = list.map(p => {
+    const agent = mockAgents.find(a => a.id === p.agent_id) || p.agent || null;
+    return { ...p, agent };
+  });
 
-    if (filters.status) {
-      const mappedStatus = filters.status === 'Buy' ? 'For Sale' : (filters.status === 'Rent' ? 'For Rent' : 'Sold');
-      list = list.filter(p => p.status === mappedStatus);
-    }
-
-    if (filters.city) {
-      list = list.filter(p => p.city.toLowerCase().includes(filters.city.toLowerCase()));
-    } else if (filters.location) {
-      list = list.filter(p => 
-        p.city.toLowerCase().includes(filters.location.toLowerCase()) || 
-        p.location.toLowerCase().includes(filters.location.toLowerCase())
-      );
-    }
-
-    if (filters.type) {
-      list = list.filter(p => p.type.toLowerCase() === filters.type.toLowerCase());
-    }
-
-    if (filters.minPrice) {
-      list = list.filter(p => p.price >= parseInt(filters.minPrice, 10));
-    }
-    if (filters.maxPrice) {
-      list = list.filter(p => p.price <= parseInt(filters.maxPrice, 10));
-    }
-
-    if (filters.bedrooms) {
-      list = list.filter(p => p.beds >= parseInt(filters.bedrooms, 10));
-    }
-    if (filters.bathrooms) {
-      list = list.filter(p => p.baths >= parseInt(filters.bathrooms, 10));
-    }
-
-    if (filters.minArea) {
-      list = list.filter(p => p.sqft >= parseInt(filters.minArea, 10));
-    }
-    if (filters.maxArea) {
-      list = list.filter(p => p.sqft <= parseInt(filters.maxArea, 10));
-    }
-
-    if (filters.amenities && filters.amenities.length > 0) {
-      list = list.filter(p => filters.amenities.every(amenity => p.features.includes(amenity)));
-    }
-
-    return list;
+  if (filters.status) {
+    const mappedStatus = filters.status === 'Buy' ? 'For Sale' : (filters.status === 'Rent' ? 'For Rent' : 'Sold');
+    list = list.filter(p => p.status === mappedStatus);
   }
 
+  if (filters.city) {
+    list = list.filter(p => p.city.toLowerCase().includes(filters.city.toLowerCase()));
+  } else if (filters.location) {
+    list = list.filter(p => 
+      p.city.toLowerCase().includes(filters.location.toLowerCase()) || 
+      p.location.toLowerCase().includes(filters.location.toLowerCase())
+    );
+  }
+
+  if (filters.type) {
+    list = list.filter(p => p.type.toLowerCase() === filters.type.toLowerCase());
+  }
+
+  if (filters.minPrice) {
+    list = list.filter(p => p.price >= parseInt(filters.minPrice, 10));
+  }
+  if (filters.maxPrice) {
+    list = list.filter(p => p.price <= parseInt(filters.maxPrice, 10));
+  }
+
+  if (filters.bedrooms) {
+    list = list.filter(p => p.beds >= parseInt(filters.bedrooms, 10));
+  }
+  if (filters.bathrooms) {
+    list = list.filter(p => p.baths >= parseInt(filters.bathrooms, 10));
+  }
+
+  if (filters.minArea) {
+    list = list.filter(p => p.sqft >= parseInt(filters.minArea, 10));
+  }
+  if (filters.maxArea) {
+    list = list.filter(p => p.sqft <= parseInt(filters.maxArea, 10));
+  }
+
+  if (filters.amenities && filters.amenities.length > 0) {
+    list = list.filter(p => filters.amenities.every(amenity => p.features.includes(amenity)));
+  }
+
+  return list;
+};
+
+const fetchLiveProperties = async (filters = {}) => {
   let query = supabase
     .from('properties')
     .select('*, agents(*, profiles(*))');
@@ -170,15 +183,20 @@ export const getProperties = async (filters = {}) => {
   return (data || []).map(mapProperty);
 };
 
-// 2. Fetch details for a single property
-export const getProperty = async (id) => {
-  if (!isConfigured) {
-    const prop = allMockProperties().find(p => p.id === parseInt(id, 10));
-    if (!prop) throw new Error(`Property ${id} not found`);
-    const agent = mockAgents.find(a => a.id === prop.agent_id) || prop.agent || null;
-    return { ...prop, agent };
-  }
+export const getProperties = async (filters = {}) => {
+  if (!isConfigured) return getMockProperties(filters);
+  return withFallback('properties', () => fetchLiveProperties(filters), () => getMockProperties(filters));
+};
 
+// 2. Fetch details for a single property
+const getMockProperty = (id) => {
+  const prop = allMockProperties().find(p => p.id === parseInt(id, 10));
+  if (!prop) throw new Error(`Property ${id} not found`);
+  const agent = mockAgents.find(a => a.id === prop.agent_id) || prop.agent || null;
+  return { ...prop, agent };
+};
+
+const fetchLiveProperty = async (id) => {
   const { data, error } = await supabase
     .from('properties')
     .select('*, agents(*, profiles(*))')
@@ -192,15 +210,18 @@ export const getProperty = async (id) => {
   return mapProperty(data);
 };
 
-// 3. Get all agents with properties listed count
-export const getAgents = async () => {
-  if (!isConfigured) {
-    return mockAgents.map(agent => ({
-      ...agent,
-      propertiesListed: mockProperties.filter(p => p.agent_id === agent.id).length
-    }));
-  }
+export const getProperty = async (id) => {
+  if (!isConfigured) return getMockProperty(id);
+  return withFallback(`property ${id}`, () => fetchLiveProperty(id), () => getMockProperty(id));
+};
 
+// 3. Get all agents with properties listed count
+const getMockAgents = () => mockAgents.map(agent => ({
+  ...agent,
+  propertiesListed: mockProperties.filter(p => p.agent_id === agent.id).length
+}));
+
+const fetchLiveAgents = async () => {
   const { data, error } = await supabase
     .from('agents')
     .select('*, profiles(*), properties(id)');
@@ -224,19 +245,24 @@ export const getAgents = async () => {
   }));
 };
 
-// 4. Get a single agent profile with properties
-export const getAgent = async (id) => {
-  if (!isConfigured) {
-    const agent = mockAgents.find(a => a.id === parseInt(id, 10));
-    if (!agent) throw new Error(`Agent ${id} not found`);
-    const agentProperties = mockProperties.filter(p => p.agent_id === agent.id).map(p => ({ ...p, agent }));
-    return {
-      ...agent,
-      propertiesListed: agentProperties.length,
-      properties: agentProperties
-    };
-  }
+export const getAgents = async () => {
+  if (!isConfigured) return getMockAgents();
+  return withFallback('agents', fetchLiveAgents, getMockAgents);
+};
 
+// 4. Get a single agent profile with properties
+const getMockAgent = (id) => {
+  const agent = mockAgents.find(a => a.id === parseInt(id, 10));
+  if (!agent) throw new Error(`Agent ${id} not found`);
+  const agentProperties = mockProperties.filter(p => p.agent_id === agent.id).map(p => ({ ...p, agent }));
+  return {
+    ...agent,
+    propertiesListed: agentProperties.length,
+    properties: agentProperties
+  };
+};
+
+const fetchLiveAgent = async (id) => {
   const { data, error } = await supabase
     .from('agents')
     .select('*, profiles(*), properties(*)')
@@ -261,6 +287,11 @@ export const getAgent = async (id) => {
     totalSales: data.total_sales || 0,
     properties: (data.properties || []).map(p => mapProperty({ ...p, agents: data }))
   };
+};
+
+export const getAgent = async (id) => {
+  if (!isConfigured) return getMockAgent(id);
+  return withFallback(`agent ${id}`, () => fetchLiveAgent(id), () => getMockAgent(id));
 };
 
 // 5. Submit an enquiry message (Tour schedule or general query)
