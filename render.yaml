@@ -1,0 +1,19 @@
+# Render Blueprint: FastAPI price-estimator backend.
+# The React frontend is deployed separately on Vercel.
+services:
+  - type: web
+    name: aura-space-estimator-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: python -m uvicorn backend.app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    buildFilter:
+      paths:
+        - backend/**
+        - render.yaml
+        - .python-version
+    envVars:
+      - key: CORS_ORIGINS
+        value: https://real-state-project-gamma.vercel.app
