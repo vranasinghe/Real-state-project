@@ -88,7 +88,6 @@
 │   ├── index.html
 │   ├── package.json
 │   ├── vite.config.js
-│   ├── vercel.json             Vercel SPA rewrite
 │   └── .env.example
 ├── backend/                    FastAPI price-estimator service
 │   ├── app.py                  API routes
@@ -103,6 +102,7 @@
 ├── database/                   Supabase SQL, run in numeric order (01, 02, 03)
 ├── docs/                       DESIGN, PRODUCT, IMPLEMENTATION notes, images
 ├── .github/workflows/          CI (lint, build, backend tests)
+├── vercel.json                 Vercel build config + SPA rewrite
 └── render.yaml                 Render Blueprint for the API
 ```
 
@@ -223,7 +223,7 @@ The in-memory demo check exercises roles, distinct identities, listing creation/
 
 | Component | Platform | Configuration |
 | --- | --- | --- |
-| Frontend | Vercel | Set **Root Directory** to `frontend`; `frontend/vercel.json` adds the SPA rewrite |
+| Frontend | Vercel | Root `vercel.json` builds `frontend/` and adds the SPA rewrite (no dashboard Root Directory needed) |
 | Estimator API | Render | `render.yaml` Blueprint, health check at `/api/health` |
 
 1. Build the frontend with `npm run build` in `frontend/` and serve `frontend/dist`, routing SPA paths to `index.html`.
