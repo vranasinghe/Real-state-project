@@ -52,12 +52,12 @@ Backend, verification and documentation:
 - `backend/tests/test_api.py`
 - `backend/requirements-dev.txt` (new)
 - `scripts/test-demo.mjs` (new)
-- `supabase_security_hardening.sql` (new)
+- `database/03_supabase_security_hardening.sql` (new)
 - `.env.example`
 - `PRODUCT.md` (new)
 - `DESIGN.md` (new)
 - `README.md`
-- `IMPLEMENTATION.md` (this file)
+- `docs/IMPLEMENTATION.md` (this file)
 
 The model, original notebook, report JSON, report figures and source CSV datasets were not replaced. No Git metadata is present in this supplied workspace, so a Git diff/commit is unavailable.
 

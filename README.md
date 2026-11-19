@@ -4,6 +4,30 @@ A React 18 / Vite / Tailwind real-estate application with Supabase accounts, pro
 
 The estimator is a **historical Ames, Iowa demonstration using 2006–2010 sales**. It does not estimate contemporary market prices, other cities, other countries or rents. Prices are USD at the stored 2010 serving reference year.
 
+## Project structure
+
+```
+.
+├── src/                    React app (Vite + Tailwind)
+│   ├── pages/              One folder per route (Home, Properties, Estimator, ...)
+│   ├── components/         agent/ common/ model/ property/ search/ three/
+│   ├── context/ hooks/     Auth + favorites state, shared hooks
+│   ├── lib/                Supabase client, data API, estimator API client
+│   ├── routes/ utils/ data/
+├── backend/                FastAPI price-estimator service
+│   ├── app.py              API routes
+│   ├── train_model.py      Rebuilds the model from data/
+│   ├── artifacts/          Saved model.joblib
+│   ├── report/             Notebook metrics + figures served by the API
+│   └── tests/
+├── data/ames-housing/      Kaggle Ames training/test CSVs
+├── notebooks/              Original modelling notebook
+├── database/               Supabase SQL, run in numeric order (01, 02, 03)
+├── docs/                   DESIGN, PRODUCT, IMPLEMENTATION notes
+├── scripts/                In-memory demo integration check
+└── .github/workflows/      CI (lint, build, backend tests)
+```
+
 ## Run locally
 
 From the project root, use two terminals:
@@ -18,7 +42,7 @@ python -m pip install -r backend/requirements-dev.txt
 python -m uvicorn backend.app:app --host 127.0.0.1 --port 8000
 ```
 
-Open http://localhost:5173. The saved `backend/model.joblib` is included; **retraining is not required**. Use the compatible scikit-learn version pinned in `backend/requirements.txt`. FastAPI's interactive API schema is at http://127.0.0.1:8000/docs.
+Open http://localhost:5173. The saved `backend/artifacts/model.joblib` is included; **retraining is not required**. Use the compatible scikit-learn version pinned in `backend/requirements.txt`. FastAPI's interactive API schema is at http://127.0.0.1:8000/docs.
 
 If port 8000 is already in use, run the backend on 8001 and start Vite with:
 
@@ -32,9 +56,9 @@ Without Supabase settings, development uses labelled sample properties and simul
 ## Connect Supabase
 
 1. Copy `.env.example` to `.env` and provide the project's public URL and anon/publishable key. Never put a service-role or private key in a `VITE_` variable.
-2. For a fresh database, run `supabase_setup.sql` in its SQL editor. This includes **sample** properties and agents; replace seed data before presenting real listings.
-3. For an older installation that predates dashboards, run `supabase_migration_dashboard.sql`.
-4. In every installation, run `supabase_security_hardening.sql` after the applicable setup scripts. It limits editable profile/agent columns, protects roles and listing reassignment, validates enquiry ownership/recipients, and configures image uploads in user-owned folders.
+2. For a fresh database, run `database/01_supabase_setup.sql` in its SQL editor. This includes **sample** properties and agents; replace seed data before presenting real listings.
+3. For an older installation that predates dashboards, run `database/02_supabase_migration_dashboard.sql`.
+4. In every installation, run `database/03_supabase_security_hardening.sql` after the applicable setup scripts. It limits editable profile/agent columns, protects roles and listing reassignment, validates enquiry ownership/recipients, and configures image uploads in user-owned folders.
 5. Configure Auth Site URL and allowed redirects, including `/reset-password`. Enable Google/Facebook providers only if those social-login options will be used.
 
 The hardening migration creates or configures the public `property-images` bucket with a 1 MB limit and JPEG/PNG/WebP/AVIF MIME restrictions. Public listing images are readable; uploads/deletes use the caller's UUID folder. Check for older permissive storage policies in an existing database, since permissive policies combine with OR. Roles selected during signup are self-service application roles, not proof of a professional license. Later role changes require an administrator.
@@ -71,7 +95,7 @@ python -m pytest backend/tests -q
 node scripts/test-demo.mjs
 ```
 
-The in-memory demo integration check exercises roles, distinct identities, listing creation/search/details, ownership rejection, favorites, enquiries and logout. It refuses to run against a configured Supabase project. See `IMPLEMENTATION.md` for the implementation inventory, executed checks and verification limits.
+The in-memory demo integration check exercises roles, distinct identities, listing creation/search/details, ownership rejection, favorites, enquiries and logout. It refuses to run against a configured Supabase project. See `docs/IMPLEMENTATION.md` for the implementation inventory, executed checks and verification limits.
 
 ## Deployment
 

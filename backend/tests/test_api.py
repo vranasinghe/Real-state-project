@@ -8,7 +8,7 @@ from fastapi.testclient import TestClient
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-if not (ROOT / 'backend' / 'model.joblib').exists():
+if not (ROOT / 'backend' / 'artifacts' / 'model.joblib').exists():
     pytest.skip('model.joblib missing - run python backend/train_model.py first', allow_module_level=True)
 
 from backend.app import app  # noqa: E402

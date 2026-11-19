@@ -1,4 +1,4 @@
--- Run this ONCE in the Supabase SQL Editor if you already ran supabase_setup.sql
+-- Run this ONCE in the Supabase SQL Editor if you already ran 01_supabase_setup.sql
 -- before the seller/agent dashboard was added. New installs do not need it.
 
 ALTER TABLE public.properties

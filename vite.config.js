@@ -10,7 +10,7 @@ export default defineConfig({
       '/api': process.env.API_PROXY_TARGET || 'http://127.0.0.1:8000',
     },
     watch: {
-      ignored: ['**/house-prices-advanced-regression-techniques*/**'],
+      ignored: ['**/data/ames-housing/**'],
     },
   },
   build: {

@@ -1,7 +1,7 @@
 """
 Train the final Ames Housing price model and save it for the API.
 
-This reproduces the pipeline from Ames_Housing_Price_Prediction.ipynb:
+This reproduces the pipeline from notebooks/ames_housing_price_prediction.ipynb:
   row-level cleaning -> train-only fills -> outlier removal -> feature engineering
   -> feature reduction (62 features) -> encode/scale -> 50/50 ensemble of
   Ridge(alpha=10) + tuned Gradient Boosting, fitted on all labelled sales.
@@ -26,8 +26,8 @@ from sklearn.preprocessing import FunctionTransformer, OneHotEncoder, OrdinalEnc
 SEED = 42
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
-DEFAULT_TRAIN = ROOT / "house-prices-advanced-regression-techniques (3)" / "train.csv"
-MODEL_PATH = HERE / "model.joblib"
+DEFAULT_TRAIN = ROOT / "data" / "ames-housing" / "train.csv"
+MODEL_PATH = HERE / "artifacts" / "model.joblib"
 
 # NA in these columns means "the house doesn't have it"
 ABSENT_CAT = ['Alley', 'BsmtQual', 'BsmtCond', 'BsmtExposure', 'BsmtFinType1', 'BsmtFinType2', 'FireplaceQu',
@@ -145,6 +145,7 @@ def main():
     # Honest hold-out numbers measured in the notebook (not recomputed on training data)
     metrics = {'test_rmse': 21673, 'test_mae': 13981, 'test_r2_log': 0.9049}
 
+    MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
     joblib.dump({
         'model_a': model_a, 'model_b': model_b, 'features': features, 'defaults': defaults,
         'neighborhoods': sorted(full['Neighborhood'].unique().tolist()),

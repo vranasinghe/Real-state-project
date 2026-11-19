@@ -1,4 +1,4 @@
--- Apply after supabase_setup.sql (and the dashboard migration on older installs).
+-- Apply after 01_supabase_setup.sql (and the dashboard migration on older installs).
 -- Also required for fresh installs. Run as database owner in Supabase SQL editor.
 BEGIN;
 ALTER FUNCTION public.handle_new_user() SET search_path = public;
