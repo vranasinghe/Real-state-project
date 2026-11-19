@@ -1,0 +1,137 @@
+{
+ "source": "Ames_Housing_Price_Prediction.ipynb, re-run on train.csv (SHA-256 verified)",
+ "splits": [
+  {
+   "split": "Train",
+   "r2": 0.9725,
+   "rmse": 13259,
+   "mae": 8607
+  },
+  {
+   "split": "Validation",
+   "r2": 0.9176,
+   "rmse": 18615,
+   "mae": 12904
+  },
+  {
+   "split": "Test",
+   "r2": 0.9049,
+   "rmse": 21673,
+   "mae": 13981
+  }
+ ],
+ "comparison": [
+  [
+   "Gradient Boosting (tuned)",
+   7903,
+   19491,
+   13672,
+   0.9095
+  ],
+  [
+   "Ridge",
+   20124,
+   20727,
+   14246,
+   0.9123
+  ],
+  [
+   "Ridge (tuned)",
+   20294,
+   20853,
+   14284,
+   0.9122
+  ],
+  [
+   "Gradient Boosting",
+   13112,
+   20961,
+   14520,
+   0.8962
+  ],
+  [
+   "Linear Regression (baseline)",
+   19501,
+   21225,
+   14935,
+   0.9145
+  ],
+  [
+   "Random Forest (tuned)",
+   10522,
+   22350,
+   15382,
+   0.8783
+  ],
+  [
+   "Random Forest",
+   10862,
+   24891,
+   17617,
+   0.8618
+  ]
+ ],
+ "ensemble_validation": {
+  "r2": 0.9176,
+  "rmse": 18615,
+  "mae": 12904
+ },
+ "by_band": [
+  [
+   "Cheapest 20%",
+   11621,
+   15.0,
+   44
+  ],
+  [
+   "Low-mid",
+   8641,
+   6.4,
+   44
+  ],
+  [
+   "Middle",
+   10988,
+   6.8,
+   43
+  ],
+  [
+   "Mid-high",
+   12827,
+   6.3,
+   44
+  ],
+  [
+   "Top 20%",
+   25758,
+   8.0,
+   44
+  ]
+ ],
+ "figures": [
+  [
+   "final_train_val_test_scores",
+   "Train vs validation vs test scores"
+  ],
+  [
+   "model_comparison_validation",
+   "Model comparison (validation)"
+  ],
+  [
+   "validation_pred_vs_actual",
+   "Predicted vs actual price (validation)"
+  ],
+  [
+   "test_residual_analysis",
+   "Residual analysis (test set)"
+  ],
+  [
+   "test_error_by_price_band",
+   "Error by price band (test set)"
+  ],
+  [
+   "feature_importance",
+   "What drives price"
+  ]
+ ]
+}
